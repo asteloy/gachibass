@@ -1,13 +1,7 @@
 [
   {
     "category": "videos",
-    "items": [
-      {"name": "Deep Dark Fantasy - Official Gachi Mix", "path": "https://www.youtube.com/embed/IXFjJGZlzEE"},
-      {"name": "Gachi-Symphony Vol 1", "path": "https://www.youtube.com/embed/S4K-G_T9i1U"},
-      {"name": "Dungeon Master's Theme", "path": "https://www.youtube.com/embed/p0E_y_mK-c0"},
-      {"name": "Right Version - Special Edit", "path": "https://www.youtube.com/embed/hVnU5G7H-S0"},
-      {"name": "Gachimuchi ♂ Bass Boosted", "path": "https://www.youtube.com/embed/f6mG9zY8A_A"}
-    ]
+    "items": []
   },
   {
     "category": "tracks",

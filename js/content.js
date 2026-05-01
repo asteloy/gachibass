@@ -26,33 +26,7 @@ async function loadContent() {
         `;
         mediaGrid.appendChild(heroSection);
 
-        // 2. Video Section
-        const videoSection = data.find(s => s.category === 'videos');
-        if (videoSection) {
-            const vHeader = document.createElement('h2');
-            vHeader.className = 'grid-header';
-            vHeader.textContent = '♂ Gachi Videos ♂';
-            mediaGrid.appendChild(vHeader);
-
-            videoSection.items.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'card';
-                const playerContainer = document.createElement('div');
-                playerContainer.className = 'card-media-container';
-                const iframe = document.createElement('iframe');
-                iframe.src = item.path;
-                iframe.className = 'card-media-iframe';
-                iframe.allow = 'autoplay';
-                playerContainer.appendChild(iframe);
-                const title = document.createElement('h3');
-                title.textContent = item.name;
-                card.appendChild(playerContainer);
-                card.appendChild(title);
-                mediaGrid.appendChild(card);
-            });
-        }
-
-        // 3. Channel Portal Section
+        // 2. Channel Portal Section (Now the main hub for videos)
         const channels = [
             { name: 'TOPWP', url: 'https://www.youtube.com/@TOPWP/videos' },
             { name: 'datezrealboi', url: 'https://www.youtube.com/@datezrealboi' },
@@ -68,7 +42,7 @@ async function loadContent() {
 
         const chHeader = document.createElement('h2');
         chHeader.className = 'grid-header';
-        chHeader.textContent = '♂ Channel Portal ♂';
+        chHeader.textContent = '♂ Gachi Channel Portal ♂';
         mediaGrid.appendChild(chHeader);
 
         channels.forEach(ch => {
@@ -83,7 +57,7 @@ async function loadContent() {
             mediaGrid.appendChild(card);
         });
 
-        // 4. Audio Section
+        // 3. Audio Section
         const audioSection = data.find(s => s.category === 'tracks');
         if (audioSection) {
             const aHeader = document.createElement('h2');
