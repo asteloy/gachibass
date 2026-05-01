@@ -1,6 +1,5 @@
 async function loadContent() {
     try {
-        // Fetch the data from the JSON file
         const response = await fetch('content.json');
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -22,19 +21,31 @@ async function loadContent() {
                 const card = document.createElement('div');
                 card.className = 'card';
 
-                const mediaElement = document.createElement(section.category === 'videos' ? 'video' : 'audio');
-                mediaElement.controls = true;
-                mediaElement.src = item.path;
-                mediaElement.className = 'card-media';
-
-                if (section.category === 'videos') {
-                    mediaElement.preload = 'metadata';
-                }
-
                 const title = document.createElement('h3');
                 title.textContent = item.name;
 
-                card.appendChild(mediaElement);
+                const playerContainer = document.createElement('div');
+                playerContainer.className = 'card-media-container';
+
+                // For Google Drive, the uc?export=download links often trigger downloads in
+                // standard <video>/<audio> tags. We will use an iframe for a better experience.
+                const embedUrl = item.path.replace('/uc?export=download', '/preview');
+
+                if (section.category === 'videos') {
+                    const iframe = document.createElement('iframe');
+                    iframe.src = embedUrl;
+                    iframe.className = 'card-media-iframe';
+                    iframe.allow = 'autoplay';
+                    playerContainer.appendChild(iframe);
+                } else {
+                    const audio = document.createElement('audio');
+                    audio.controls = true;
+                    audio.src = item.path;
+                    audio.className = 'card-media-audio';
+                    playerContainer.appendChild(audio);
+                }
+
+                card.appendChild(playerContainer);
                 card.appendChild(title);
                 grid.appendChild(card);
             });
