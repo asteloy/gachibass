@@ -1,9 +1,19 @@
 async function loadContent() {
     try {
-        const data = GACHI_DATA;
+        // Fetch the data from the JSON file
+        const response = await fetch('content.json');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
 
         const videoGrid = document.getElementById('video-grid');
         const audioGrid = document.getElementById('audio-grid');
+
+        if (!videoGrid || !audioGrid) {
+            console.error('Grids not found in HTML');
+            return;
+        }
 
         data.forEach(section => {
             const grid = section.category === 'videos' ? videoGrid : audioGrid;
