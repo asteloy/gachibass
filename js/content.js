@@ -1,15 +1,14 @@
 async function loadContent() {
     try {
         const response = await fetch('content.json');
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
 
         const mediaGrid = document.getElementById('media-grid');
         if (!mediaGrid) return;
+        mediaGrid.innerHTML = '';
 
-        // 1. Featured Video (Hero)
+        // 1. Hero Section (Binary Legends)
         const heroSection = document.createElement('div');
         heroSection.className = 'hero-section';
         heroSection.innerHTML = `
@@ -27,7 +26,33 @@ async function loadContent() {
         `;
         mediaGrid.appendChild(heroSection);
 
-        // 2. Channels Section
+        // 2. Video Section
+        const videoSection = data.find(s => s.category === 'videos');
+        if (videoSection) {
+            const vHeader = document.createElement('h2');
+            vHeader.className = 'grid-header';
+            vHeader.textContent = '♂ Gachi Videos ♂';
+            mediaGrid.appendChild(vHeader);
+
+            videoSection.items.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                const playerContainer = document.createElement('div');
+                playerContainer.className = 'card-media-container';
+                const iframe = document.createElement('iframe');
+                iframe.src = item.path;
+                iframe.className = 'card-media-iframe';
+                iframe.allow = 'autoplay';
+                playerContainer.appendChild(iframe);
+                const title = document.createElement('h3');
+                title.textContent = item.name;
+                card.appendChild(playerContainer);
+                card.appendChild(title);
+                mediaGrid.appendChild(card);
+            });
+        }
+
+        // 3. Channel Portal Section
         const channels = [
             { name: 'TOPWP', url: 'https://www.youtube.com/@TOPWP/videos' },
             { name: 'datezrealboi', url: 'https://www.youtube.com/@datezrealboi' },
@@ -41,10 +66,10 @@ async function loadContent() {
             { name: 'Sexton', url: 'https://www.youtube.com/channel/UCBwYv5EB7017oBA3RAM4wgw' },
         ];
 
-        const channelHeader = document.createElement('h2');
-        channelHeader.className = 'grid-header';
-        channelHeader.textContent = '♂ Gachi Channels ♂';
-        mediaGrid.appendChild(channelHeader);
+        const chHeader = document.createElement('h2');
+        chHeader.className = 'grid-header';
+        chHeader.textContent = '♂ Channel Portal ♂';
+        mediaGrid.appendChild(chHeader);
 
         channels.forEach(ch => {
             const card = document.createElement('div');
@@ -58,32 +83,31 @@ async function loadContent() {
             mediaGrid.appendChild(card);
         });
 
-        // 3. Audio/Other Section
-        data.forEach(section => {
-            if (section.category === 'tracks') {
-                const audioHeader = document.createElement('h2');
-                audioHeader.className = 'grid-header';
-                audioHeader.textContent = '♂ Legendary Tracks ♂';
-                mediaGrid.appendChild(audioHeader);
+        // 4. Audio Section
+        const audioSection = data.find(s => s.category === 'tracks');
+        if (audioSection) {
+            const aHeader = document.createElement('h2');
+            aHeader.className = 'grid-header';
+            aHeader.textContent = '♂ Legendary Tracks ♂';
+            mediaGrid.appendChild(aHeader);
 
-                section.items.forEach(item => {
-                    const card = document.createElement('div');
-                    card.className = 'card';
-                    const playerContainer = document.createElement('div');
-                    playerContainer.className = 'card-media-container';
-                    const audio = document.createElement('audio');
-                    audio.controls = true;
-                    audio.src = item.path;
-                    audio.className = 'card-media-audio';
-                    playerContainer.appendChild(audio);
-                    const title = document.createElement('h3');
-                    title.textContent = item.name;
-                    card.appendChild(playerContainer);
-                    card.appendChild(title);
-                    mediaGrid.appendChild(card);
-                });
-            }
-        });
+            audioSection.items.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                const playerContainer = document.createElement('div');
+                playerContainer.className = 'card-media-container';
+                const audio = document.createElement('audio');
+                audio.controls = true;
+                audio.src = item.path;
+                audio.className = 'card-media-audio';
+                playerContainer.appendChild(audio);
+                const title = document.createElement('h3');
+                title.textContent = item.name;
+                card.appendChild(playerContainer);
+                card.appendChild(title);
+                mediaGrid.appendChild(card);
+            });
+        }
 
     } catch (error) {
         console.error('Error loading content:', error);
