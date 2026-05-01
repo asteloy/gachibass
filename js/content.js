@@ -6,17 +6,14 @@ async function loadContent() {
         }
         const data = await response.json();
 
-        const videoGrid = document.getElementById('video-grid');
-        const audioGrid = document.getElementById('audio-grid');
+        const mediaGrid = document.getElementById('media-grid');
 
-        if (!videoGrid || !audioGrid) {
-            console.error('Grids not found in HTML');
+        if (!mediaGrid) {
+            console.error('Media grid not found in HTML');
             return;
         }
 
         data.forEach(section => {
-            const grid = section.category === 'videos' ? videoGrid : audioGrid;
-
             section.items.forEach(item => {
                 const card = document.createElement('div');
                 card.className = 'card';
@@ -27,17 +24,16 @@ async function loadContent() {
                 const playerContainer = document.createElement('div');
                 playerContainer.className = 'card-media-container';
 
-                // For Google Drive, the uc?export=download links often trigger downloads in
-                // standard <video>/<audio> tags. We will use an iframe for a better experience.
-                const embedUrl = item.path.replace('/uc?export=download', '/preview');
-
                 if (section.category === 'videos') {
+                    // Use Google Drive Preview for videos
+                    const embedUrl = item.path.replace('/uc?export=download', '/preview');
                     const iframe = document.createElement('iframe');
                     iframe.src = embedUrl;
                     iframe.className = 'card-media-iframe';
                     iframe.allow = 'autoplay';
                     playerContainer.appendChild(iframe);
                 } else {
+                    // For audio, we expect a direct stream link (e.g. Dropbox raw=1)
                     const audio = document.createElement('audio');
                     audio.controls = true;
                     audio.src = item.path;
@@ -47,7 +43,7 @@ async function loadContent() {
 
                 card.appendChild(playerContainer);
                 card.appendChild(title);
-                grid.appendChild(card);
+                mediaGrid.appendChild(card);
             });
         });
     } catch (error) {
