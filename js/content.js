@@ -42,7 +42,7 @@ async function loadContent() {
             { name: 'djmisha9826', url: 'https://www.youtube.com/@djmisha9826/videos' },
             { name: 'KuK-Videos', url: 'https://www.youtube.com/@KuK-Videos' },
             { name: 'daffyso2297', url: 'https://www.youtube.com/@daffyso2297' },
-            { name: 'Sexton', url: 'https://www.youtube.com/channel/UCBwYv5EB7017oBA3RAM4wgw' },
+            { name: 'DRAMERSON', url: 'https://www.youtube.com/channel/UCBwYv5EB7017oBA3RAM4wgw' },
         ];
 
         const chHeader = document.createElement('h2');
@@ -55,7 +55,7 @@ async function loadContent() {
             card.className = 'card channel-card';
 
             let mediaContent = '';
-            if (ch.name === 'Sexton') {
+            if (ch.name === 'DRAMERSON') {
                 mediaContent = `
                     <div class="card-media-container">
                         <iframe class="card-media-iframe" src="https://www.youtube.com/embed/IXFjJGZlzEE"
