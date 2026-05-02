@@ -19,11 +19,11 @@ async function loadContent() {
                 </div>
                 <div class="hero-legends">
                     <div class="hero-legend">
-                        <img src="https://i.imgur.com/XvD8Xz6.jpg" alt="Billy Herrington" class="legend-img">
+                        <img src="assets/billy.webp" alt="Billy Herrington" class="legend-img">
                         <span>BILLY HERRINGTON</span>
                     </div>
                     <div class="hero-legend">
-                        <img src="https://i.imgur.com/v6fPZzW.jpg" alt="Van Darkholme" class="legend-img">
+                        <img src="assets/van.jpg" alt="Van Darkholme" class="legend-img">
                         <span>VAN DARKHOLME</span>
                     </div>
                 </div>
