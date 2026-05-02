@@ -93,17 +93,19 @@ h2 {
     margin: 20px auto;
     width: 100%;
     max-width: 600px;
-    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background: linear-gradient(45deg, #1a1a1a, #333);
     border: 3px solid #ffd700;
     box-shadow: 0 0 15px #ffd700;
     border-radius: 10px;
-    overflow: hidden;
 }
 
-.radio-embed iframe {
+.radio-embed audio {
     width: 100%;
-    height: 100%;
-    border: none;
+    filter: invert(100%) hue-rotate(180deg) brightness(1.5);
 }
 
 .hero-section {
@@ -132,13 +134,13 @@ h2 {
     overflow: hidden;
 }
 
-.hero-video iframe {
+.hero-video video {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    border: none;
+    object-fit: cover;
 }
 
 .hero-legends {
@@ -148,6 +150,23 @@ h2 {
     font-weight: bold;
     font-size: 1.5rem;
     text-shadow: 0 0 10px #ffd700;
+    justify-content: center;
+}
+
+.hero-legend {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.legend-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid #ffd700;
+    box-shadow: 0 0 10px #ffd700;
+    object-fit: cover;
 }
 
 .modal-content {

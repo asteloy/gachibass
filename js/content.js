@@ -15,12 +15,17 @@ async function loadContent() {
             <div class="hero-container">
                 <h2>♂ MAIN FEATURE ♂</h2>
                 <div class="hero-video">
-                    <iframe src="https://www.youtube.com/embed/IXFjJGZlzEE?autoplay=1&mute=1"
-                            allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <video src="assets/videos/video_bg.mp4" autoplay loop muted playsinline></video>
                 </div>
                 <div class="hero-legends">
-                    <span>BILLY HERRINGTON</span>
-                    <span>VAN DARKHOLME</span>
+                    <div class="hero-legend">
+                        <img src="https://i.imgur.com/XvD8Xz6.jpg" alt="Billy Herrington" class="legend-img">
+                        <span>BILLY HERRINGTON</span>
+                    </div>
+                    <div class="hero-legend">
+                        <img src="https://i.imgur.com/v6fPZzW.jpg" alt="Van Darkholme" class="legend-img">
+                        <span>VAN DARKHOLME</span>
+                    </div>
                 </div>
             </div>
         `;
@@ -48,9 +53,21 @@ async function loadContent() {
         channels.forEach(ch => {
             const card = document.createElement('div');
             card.className = 'card channel-card';
+
+            let mediaContent = '';
+            if (ch.name === 'Sexton') {
+                mediaContent = `
+                    <div class="card-media-container">
+                        <iframe class="card-media-iframe" src="https://www.youtube.com/embed/IXFjJGZlzEE"
+                            allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    </div>
+                `;
+            }
+
             card.innerHTML = `
+                ${mediaContent}
                 <div class="channel-info">
-                    <h3>${ch.name}</h3>
+                    <h3">${ch.name}</h3>
                     <a href="${ch.url}" target="_blank" class="channel-btn">VISIT CHANNEL ♂</a>
                 </div>
             `;
