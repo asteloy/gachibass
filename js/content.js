@@ -13,7 +13,6 @@ async function loadContent() {
         heroSection.className = 'hero-section';
         heroSection.innerHTML = `
             <div class="hero-container">
-                <h2>♂ MAIN FEATURE ♂</h2>
                 <div class="hero-video">
                     <video src="assets/videos/video_bg.mp4" autoplay loop muted playsinline></video>
                 </div>
@@ -79,7 +78,7 @@ async function loadContent() {
         if (audioSection) {
             const aHeader = document.createElement('h2');
             aHeader.className = 'grid-header';
-            aHeader.textContent = '♂ Legendary Tracks ♂';
+            aHeader.textContent = 'Главный ♂REAL MAN♂ Российской Федерации ♂Swallowsher MorGaySlave♂ представляет';
             mediaGrid.appendChild(aHeader);
 
             audioSection.items.forEach(item => {
