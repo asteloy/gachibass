@@ -35,13 +35,13 @@ async function loadContent() {
             { name: 'TOPWP', url: 'https://www.youtube.com/@TOPWP/videos' },
             { name: 'datezrealboi', url: 'https://www.youtube.com/@datezrealboi' },
             { name: 'akasanGachi', url: 'https://www.youtube.com/@akasanGachi' },
-            { name: 'tabolichgachi', url: 'https://www.youtube.com/@tabolichgachi' },
-            { name: 'MYASSTRO300', url: 'https://www.youtube.com/@MYASSTRO300' },
-            { name: 'CrazyFrogGachi', url: 'https://www.youtube.com/@CrazyFrogGachi' },
-            { name: 'djmisha9826', url: 'https://www.youtube.com/@djmisha9826/videos' },
-            { name: 'KuK-Videos', url: 'https://www.youtube.com/@KuK-Videos' },
-            { name: 'daffyso2297', url: 'https://www.youtube.com/@daffyso2297' },
-            { name: 'DRAMERSON', url: 'https://www.youtube.com/channel/UCBwYv5EB7017oBA3RAM4wgw' },
+            { name: 'tabolichgachi', url: 'https://www.youtube.com/@tabolichgachi', videoId: '29HLU7P_ZIA' },
+            { name: 'MYASSTRO300', url: 'https://www.youtube.com/@MYASSTRO300', videoId: 'KwbrV7nN8y0' },
+            { name: 'CrazyFrogGachi', url: 'https://www.youtube.com/@CrazyFrogGachi', videoId: 'hlDHk4eIKFo' },
+            { name: 'djmisha9826', url: 'https://www.youtube.com/@djmisha9826/videos', videoId: '-NPD--V_h84' },
+            { name: 'KuK-Videos', url: 'https://www.youtube.com/@KuK-Videos', videoId: 'C5fKF5aVa7E' },
+            { name: 'daffyso2297', url: 'https://www.youtube.com/@daffyso2297', videoId: 'Goa_6Zhlutc' },
+            { name: 'DRAMERSON', url: 'https://www.youtube.com/channel/UCBwYv5EB7017oBA3RAM4wgw', videoId: 'IXFjJGZlzEE' },
         ];
 
         const chHeader = document.createElement('h2');
