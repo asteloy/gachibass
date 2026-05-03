@@ -105,7 +105,7 @@ h2 {
 
 .radio-embed audio {
     width: 100%;
-    filter: invert(100%) hue-rotate(180deg) brightness(1.5);
+    filter: brightness(0.7);
 }
 
 .hero-section {

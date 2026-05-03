@@ -90,6 +90,11 @@ async function loadContent() {
                 audio.controls = true;
                 audio.src = item.path;
                 audio.className = 'card-media-audio';
+                audio.onplay = () => {
+                    document.querySelectorAll('audio').forEach(a => {
+                        if (a !== audio) a.pause();
+                    });
+                };
                 playerContainer.appendChild(audio);
                 const title = document.createElement('h3');
                 title.textContent = item.name;
@@ -104,4 +109,15 @@ async function loadContent() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', loadContent);
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize exclusive audio for the radio player
+    const radioPlayer = document.querySelector('.radio-embed audio');
+    if (radioPlayer) {
+        radioPlayer.onplay = () => {
+            document.querySelectorAll('audio').forEach(a => {
+                if (a !== radioPlayer) a.pause();
+            });
+        };
+    }
+    loadContent();
+});
