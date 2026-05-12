@@ -18,21 +18,36 @@ async function loadContent() {
                     <div class="hero-video">
                         <video src="assets/videos/video_bg.mp4" autoplay loop muted playsinline></video>
                     </div>
-                    <div class="hero-legends" style="flex-wrap: wrap; gap: 20px;">
-                        ${legendsSection.items.map(l => `
-                            <div class="hero-legend" style="cursor: pointer;" onclick="showHeroDescription('${l.name}')">
-                                <img src="${l.img}" alt="${l.name}" class="legend-img">
-                                <span>${l.name}</span>
+                    <div class="legends-list">
+                        ${legendsSection.items.map((l, index) => `
+                            <div class="legend-item" onclick="toggleLegend(${index})">
+                                <img src="${l.img}" alt="${l.name}" class="profile-img">
+                                <div class="legend-name">${l.name}</div>
+                                <div class="legend-bio" id="bio-${index}"></div>
+                                <div class="read-more-hint">Нажми, чтобы узнать больше ♂</div>
                             </div>
                         `).join('')}
-                    </div>
-                    <div id="legend-detail" class="hero-legend-detail">
-                        <h3 id="legend-name"></h3>
-                        <div id="legend-text" class="hero-legend-text"></div>
                     </div>
                 </div>
             `;
             mediaGrid.appendChild(heroSection);
+
+            // Pre-load descriptions and set them
+            for (let i = 0; i < legendsSection.items.length; i++) {
+                const legend = legendsSection.items[i];
+                const bioEl = document.getElementById(`bio-${i}`);
+                try {
+                    const res = await fetch(`assets/description/${legend.name}.txt`);
+                    if (res.ok) {
+                        const text = await res.text();
+                        bioEl.textContent = text;
+                    } else {
+                        bioEl.textContent = 'Описание отсутствует.';
+                    }
+                } catch (e) {
+                    bioEl.textContent = 'Ошибка загрузки описания.';
+                }
+            }
         }
 
         // 2. Channel Portal Section
@@ -123,28 +138,16 @@ function stopAllAudio(except) {
     });
 }
 
-async function showHeroDescription(name) {
-    const detailBox = document.getElementById('legend-detail');
-    const nameEl = document.getElementById('legend-name');
-    const textEl = document.getElementById('legend-text');
+function toggleLegend(index) {
+    const items = document.querySelectorAll('.legend-item');
+    const target = items[index];
 
-    if (!detailBox) return;
+    // Close others if we want a "singleton" accordion, otherwise just toggle
+    items.forEach((item, i) => {
+        if (i !== index) item.classList.remove('active');
+    });
 
-    nameEl.textContent = name;
-    textEl.textContent = 'Загрузка описания...';
-    detailBox.classList.add('active');
-
-    // Scroll to detail box for better UX
-    detailBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-
-    try {
-        const response = await fetch(`assets/description/${name}.txt`);
-        if (!response.ok) throw new Error('Description not found');
-        const text = await response.text();
-        textEl.textContent = text;
-    } catch (error) {
-        textEl.textContent = 'Описание отсутствует или не может быть загружено.';
-    }
+    target.classList.toggle('active');
 }
 
 function showNotification(text) {
@@ -198,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         clearTimeout(loadTimeout);
                         radioBtn.textContent = 'PLAY RADIO ♂';
                         radioBtn.disabled = false;
-                        showNotification('♂♂♂ Ошибка при запуске радио ♂♂♂<br>Попробуйте открыть поток напрямую: <a href="https://radio.gachibass.us.to/fisting" target="_blank" style="로 la l_blank" style="color: #fff; text-decoration: underline;">YouTube ♂</a>, REAL MAN!');
+                        showNotification('♂♂♂ Ошибка при запуске радио ♂♂♂<br>Попробуйте открыть поток напрямую: <a href="https://radio.gachibass.us.to/fisting" target="_blank" style="color: #fff; text-decoration: underline;">прямая ссылка ♂</a> или <a href="https://www.youtube.com/watch?v=RmKYIxYfwpc" target="_blank" style="color: #fff; text-decoration: underline;">YouTube ♂</a>, REAL MAN!');
                     });
             } else {
                 radioPlayer.pause();
