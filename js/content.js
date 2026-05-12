@@ -8,7 +8,19 @@ async function loadContent() {
         if (!mediaGrid) return;
         mediaGrid.innerHTML = '';
 
-        // 1. Hero Section (Binary Legends)
+        // 1. Hero Section (Legends of Gachi)
+        const legends = [
+            { name: 'BILLY HERRINGTON', img: 'assets/pictures/BILLY HERRINGTON.webp' },
+            { name: 'VAN DARKHOLME', img: 'assets/pictures/VAN DARKHOLME.jpg' },
+            { name: 'RICARDO MILOS', img: 'assets/pictures/RICARDO MILOS.jpg' },
+            { name: 'BRAD MCGAIRE', img: 'assets/pictures/BRAD MCGAIRE.jpg' },
+            { name: 'DANNY LEE', img: 'assets/pictures/DANNY LEE.jpg' },
+            { name: 'MARK WOLF', img: 'assets/pictures/MARK WOLF.jpg' },
+            { name: 'RAY HARLEY', img: 'assets/pictures/RAY HARLEY.jpg' },
+            { name: 'STEVE HERLEY', img: 'assets/pictures/STEVE HERLEY.jpg' },
+            { name: 'STEVE REMBO', img: 'assets/pictures/STEVE REMBO.jpg' },
+        ];
+
         const heroSection = document.createElement('div');
         heroSection.className = 'hero-section';
         heroSection.innerHTML = `
@@ -16,21 +28,19 @@ async function loadContent() {
                 <div class="hero-video">
                     <video src="assets/videos/video_bg.mp4" autoplay loop muted playsinline></video>
                 </div>
-                <div class="hero-legends">
-                    <div class="hero-legend">
-                        <img src="assets/billy.webp" alt="Billy Herrington" class="legend-img">
-                        <span>BILLY HERRINGTON</span>
-                    </div>
-                    <div class="hero-legend">
-                        <img src="assets/van.jpg" alt="Van Darkholme" class="legend-img">
-                        <span>VAN DARKHOLME</span>
-                    </div>
+                <div class="hero-legends" style="flex-wrap: wrap; gap: 20px;">
+                    ${legends.map(l => `
+                        <div class="hero-legend" style="cursor: pointer;" onclick="showHeroDescription('${l.name}')">
+                            <img src="${l.img}" alt="${l.name}" class="legend-img">
+                            <span>${l.name}</span>
+                        </div>
+                    `).join('')}
                 </div>
             </div>
         `;
         mediaGrid.appendChild(heroSection);
 
-        // 2. Channel Portal Section (Now the main hub for videos)
+        // 2. Channel Portal Section
         const channels = [
             { name: 'TOPWP', url: 'https://www.youtube.com/@TOPWP/videos' },
             { name: 'datezrealboi', url: 'https://www.youtube.com/@datezrealboi' },
@@ -109,8 +119,35 @@ async function loadContent() {
     }
 }
 
+async function showHeroDescription(name) {
+    const modal = document.getElementById('hero-modal');
+    const title = document.getElementById('player-title');
+    const description = document.getElementById('hero-description');
+
+    title.textContent = name;
+    description.textContent = 'Загрузка описания...';
+    modal.style.display = 'block';
+
+    try {
+        const response = await fetch(`assets/description/${name}.txt`);
+        if (!response.ok) throw new Error('Description not found');
+        const text = await response.text();
+        description.textContent = text;
+    } catch (error) {
+        description.textContent = 'Описание отсутствует или не может быть загружено.';
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize exclusive audio for the radio player
+    const modal = document.getElementById('hero-modal');
+    const closeBtn = document.querySelector('.close-btn');
+    if (closeBtn) {
+        closeBtn.onclick = () => modal.style.display = 'none';
+    }
+    window.onclick = (event) => {
+        if (event.target == modal) modal.style.display = 'none';
+    };
+
     const radioPlayer = document.querySelector('.radio-embed audio');
     if (radioPlayer) {
         radioPlayer.onplay = () => {
