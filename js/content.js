@@ -138,6 +138,21 @@ async function showHeroDescription(name) {
     }
 }
 
+function showNotification(text) {
+    const container = document.getElementById('notification-container');
+    if (!container) return;
+
+    const notification = document.createElement('div');
+    notification.className = 'notification';
+    notification.textContent = text;
+    container.appendChild(notification);
+
+    setTimeout(() => {
+        notification.style.opacity = '0';
+        setTimeout(() => notification.remove(), 500);
+    }, 5000);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById('hero-modal');
     const closeBtn = document.querySelector('.close-btn');
@@ -156,15 +171,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         radioBtn.addEventListener('click', () => {
             if (radioPlayer.paused || radioPlayer.ended) {
-                // Enter loading state
                 radioBtn.textContent = 'LOADING... ♂';
                 radioBtn.disabled = true;
 
-                // Force fresh stream
                 radioPlayer.src = `https://radio.gachibass.us.to/fisting?t=${Date.now()}`;
                 radioPlayer.load();
 
-                // Setup timeout to prevent infinite hanging
                 loadTimeout = setTimeout(() => {
                     console.warn('Radio stream took too long to start. Resetting...');
                     radioPlayer.pause();
@@ -172,18 +184,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     radioPlayer.load();
                     radioBtn.textContent = 'PLAY RADIO ♂';
                     radioBtn.disabled = false;
-                }, 8000); // 8 seconds tolerance for slow streams
+                    showNotification('♂ Радио не удалось загрузить. Попробуйте еще раз ♂');
+                }, 8000);
 
                 radioPlayer.play()
                     .then(() => {
-                        // We only change state to 'playing' when the 'playing' event fires
-                        // as .play() only starts the attempt.
+                        // state changes to 'playing' inside event listener
                     })
                     .catch(e => {
                         console.error('Radio playback failed:', e);
                         clearTimeout(loadTimeout);
                         radioBtn.textContent = 'PLAY RADIO ♂';
                         radioBtn.disabled = false;
+                        showNotification('♂ Ошибка при запуске радио ♂');
                     });
             } else {
                 radioPlayer.pause();
@@ -194,7 +207,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // The actual event that confirms the stream is buffering and playing
         radioPlayer.addEventListener('playing', () => {
             clearTimeout(loadTimeout);
             radioBtn.textContent = 'STOP RADIO ♂';
