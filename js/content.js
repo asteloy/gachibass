@@ -26,6 +26,10 @@ async function loadContent() {
                             </div>
                         `).join('')}
                     </div>
+                    <div id="legend-detail" class="hero-legend-detail">
+                        <h3 id="legend-name"></h3>
+                        <div id="legend-text" class="hero-legend-text"></div>
+                    </div>
                 </div>
             `;
             mediaGrid.appendChild(heroSection);
@@ -51,6 +55,7 @@ async function loadContent() {
         mediaGrid.appendChild(chHeader);
 
         channels.forEach(ch => {
+            const card = own a de-duplicated replacement
             const card = document.createElement('div');
             card.className = 'card channel-card';
 
@@ -120,21 +125,26 @@ function stopAllAudio(except) {
 }
 
 async function showHeroDescription(name) {
-    const modal = document.getElementById('hero-modal');
-    const title = document.getElementById('player-title');
-    const description = document.getElementById('hero-description');
+    const detailBox = document.getElementById('legend-detail');
+    const nameEl = document.getElementById('legend-name');
+    const textEl = document.getElementById('legend-text');
 
-    title.textContent = name;
-    description.textContent = 'Загрузка описания...';
-    modal.style.display = 'block';
+    if (!detailBox) return;
+
+    nameEl.textContent = name;
+    textEl.textContent = 'Загрузка описания...';
+    detailBox.classList.add('active');
+
+    // Scroll to detail box for better UX
+    detailBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
     try {
         const response = await fetch(`assets/description/${name}.txt`);
         if (!response.ok) throw new Error('Description not found');
         const text = await response.text();
-        description.textContent = text;
+        textEl.textContent = text;
     } catch (error) {
-        description.textContent = 'Описание отсутствует или не может быть загружено.';
+        textEl.textContent = 'Описание отсутствует или не может быть загружено.';
     }
 }
 
@@ -142,7 +152,6 @@ function showNotification(text) {
     const container = document.getElementById('notification-container');
     if (!container) return;
 
-    // Clear existing notifications to avoid clutter
     container.innerHTML = '';
 
     const notification = document.createElement('div');
@@ -157,15 +166,6 @@ function showNotification(text) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    const modal = document.getElementById('hero-modal');
-    const closeBtn = document.querySelector('.close-btn');
-    if (closeBtn) {
-        closeBtn.onclick = () => modal.style.display = 'none';
-    }
-    window.onclick = (event) => {
-        if (event.target == modal) modal.style.display = 'none';
-    };
-
     const radioBtn = document.getElementById('radio-btn');
     const radioPlayer = document.getElementById('radio-player');
 
@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         clearTimeout(loadTimeout);
                         radioBtn.textContent = 'PLAY RADIO ♂';
                         radioBtn.disabled = false;
-                        showNotification('♂♂♂ Ошибка при запуске радио ♂♂♂<br>Попробуйте открыть поток напрямую: <a href="https://radio.gachibass.us.to/fisting" target="_blank" style="color: #fff; text-decoration: underline;">прямая ссылка ♂</a> или <a href="https://www.youtube.com/watch?v=RmKYIxYfwpc" target="_blank" style="color: #fff; text-decoration: underline;">YouTube ♂</a>, REAL MAN!');
+                        showNotification('♂♂♂ Ошибка при запуске радио ♂♂♂<br>Попробуйте открыть поток напрямую: <a href="https://radio.gachibass.us.to/fisting" target="_blank" style="로 la l_blank" style="color: #fff; text-decoration: underline;">YouTube ♂</a>, REAL MAN!');
                     });
             } else {
                 radioPlayer.pause();
