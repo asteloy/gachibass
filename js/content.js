@@ -184,7 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     radioPlayer.load();
                     radioBtn.textContent = 'PLAY RADIO ♂';
                     radioBtn.disabled = false;
-                    showNotification('♂♂♂ Радио не удалось загрузить ♂♂♂<br>Попробуйте открыть поток напрямую: <a href="https://radio.gachibass.us.to/fisting" target="_blank" style="color: #fff; text-decoration: underline;">нажми сюда, REAL MAN ♂</a>');
+                    showNotification('♂♂♂ Радио не удалось загрузить ♂♂♂<br>Попробуйте открыть поток напрямую: <a href="https://radio.gachibass.us.to/fisting" target="_blank" style="color: #fff; text-decoration: underline;">прямая ссылка ♂</a> или <a href="https://www.youtube.com/watch?v=RmKYIxYfwpc" target="_blank" style="color: #fff; text-decoration: underline;">YouTube ♂</a>, REAL MAN!');
                 }, 8000);
 
                 radioPlayer.play()
@@ -196,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         clearTimeout(loadTimeout);
                         radioBtn.textContent = 'PLAY RADIO ♂';
                         radioBtn.disabled = false;
-                        showNotification('♂♂♂ Ошибка при запуске радио ♂♂♂<br>Попробуйте открыть поток напрямую: <a href="https://radio.gachibass.us.to/fisting" target="_blank" style="color: #fff; text-decoration: underline;">нажми сюда, REAL MAN ♂</a>');
+                        showNotification('♂♂♂ Ошибка при запуске радио ♂♂♂<br>Попробуйте открыть поток напрямую: <a href="https://radio.gachibass.us.to/fisting" target="_blank" style="color: #fff; text-decoration: underline;">прямая ссылка ♂</a> или <a href="https://www.youtube.com/watch?v=RmKYIxYfwpc" target="_blank" style="color: #fff; text-decoration: underline;">YouTube ♂</a>, REAL MAN!');
                     });
             } else {
                 radioPlayer.pause();
