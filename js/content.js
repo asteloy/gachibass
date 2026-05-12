@@ -89,6 +89,7 @@ async function loadContent() {
                 playerContainer.className = 'card-media-container';
                 const audio = document.createElement('audio');
                 audio.controls = true;
+                audio.preload = 'none';
                 audio.src = item.path;
                 audio.className = 'card-media-audio';
                 audio.onplay = () => {
