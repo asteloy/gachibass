@@ -144,7 +144,7 @@ function showNotification(text) {
 
     const notification = document.createElement('div');
     notification.className = 'notification';
-    notification.textContent = text;
+    notification.innerHTML = text;
     container.appendChild(notification);
 
     setTimeout(() => {
@@ -184,7 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     radioPlayer.load();
                     radioBtn.textContent = 'PLAY RADIO ♂';
                     radioBtn.disabled = false;
-                    showNotification('♂ Радио не удалось загрузить. Попробуйте еще раз ♂');
+                    showNotification('♂♂♂ Радио не удалось загрузить ♂♂♂<br>Попробуйте открыть поток напрямую: <a href="https://radio.gachibass.us.to/fisting" target="_blank" style="color: #fff; text-decoration: underline;">нажми сюда, REAL MAN ♂</a>');
                 }, 8000);
 
                 radioPlayer.play()
@@ -196,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         clearTimeout(loadTimeout);
                         radioBtn.textContent = 'PLAY RADIO ♂';
                         radioBtn.disabled = false;
-                        showNotification('♂ Ошибка при запуске радио ♂');
+                        showNotification('♂♂♂ Ошибка при запуске радио ♂♂♂<br>Попробуйте открыть поток напрямую: <a href="https://radio.gachibass.us.to/fisting" target="_blank" style="color: #fff; text-decoration: underline;">нажми сюда, REAL MAN ♂</a>');
                     });
             } else {
                 radioPlayer.pause();
