@@ -101,9 +101,7 @@ async function loadContent() {
                 audio.src = item.path;
                 audio.className = 'card-media-audio';
                 audio.onplay = () => {
-                    document.querySelectorAll('audio').forEach(a => {
-                        if (a !== audio) a.pause();
-                    });
+                    stopAllAudio(audio);
                 };
                 playerContainer.appendChild(audio);
                 const title = document.createElement('h3');
@@ -117,6 +115,16 @@ async function loadContent() {
     } catch (error) {
         console.error('Error loading content:', error);
     }
+}
+
+function stopAllAudio(except) {
+    const allAudio = document.querySelectorAll('audio');
+    allAudio.forEach(a => {
+        if (a !== except) {
+            a.pause();
+            a.currentTime = 0;
+        }
+    });
 }
 
 async function showHeroDescription(name) {
@@ -146,14 +154,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     window.onclick = (event) => {
         if (event.target == modal) modal.style.display = 'none';
-    };
+    }
 
-    const radioPlayer = document.querySelector('.radio-embed audio');
+    const radioPlayer = document.getElementById('radio-player');
     if (radioPlayer) {
+        radioPlayer.src = 'https://radio.gachibass.us.to/fisting';
         radioPlayer.onplay = () => {
-            document.querySelectorAll('audio').forEach(a => {
-                if (a !== radioPlayer) a.pause();
-            });
+            stopAllAudio(radioPlayer);
         };
     }
     loadContent();
