@@ -9,36 +9,27 @@ async function loadContent() {
         mediaGrid.innerHTML = '';
 
         // 1. Hero Section (Legends of Gachi)
-        const legends = [
-            { name: 'BILLY HERRINGTON', img: 'assets/pictures/BILLY HERRINGTON.webp' },
-            { name: 'VAN DARKHOLME', img: 'assets/pictures/VAN DARKHOLME.jpg' },
-            { name: 'RICARDO MILOS', img: 'assets/pictures/RICARDO MILOS.jpg' },
-            { name: 'BRAD MCGAIRE', img: 'assets/pictures/BRAD MCGAIRE.jpg' },
-            { name: 'DANNY LEE', img: 'assets/pictures/DANNY LEE.jpg' },
-            { name: 'MARK WOLF', img: 'assets/pictures/MARK WOLF.jpg' },
-            { name: 'RAY HARLEY', img: 'assets/pictures/RAY HARLEY.jpg' },
-            { name: 'STEVE HERLEY', img: 'assets/pictures/STEVE HERLEY.jpg' },
-            { name: 'STEVE REMBO', img: 'assets/pictures/STEVE REMBO.jpg' },
-        ];
-
-        const heroSection = document.createElement('div');
-        heroSection.className = 'hero-section';
-        heroSection.innerHTML = `
-            <div class="hero-container">
-                <div class="hero-video">
-                    <video src="assets/videos/video_bg.mp4" autoplay loop muted playsinline></video>
+        const legendsSection = data.find(s => s.category === 'legends');
+        if (legendsSection) {
+            const heroSection = document.createElement('div');
+            heroSection.className = 'hero-section';
+            heroSection.innerHTML = `
+                <div class="hero-container">
+                    <div class="hero-video">
+                        <video src="assets/videos/video_bg.mp4" autoplay loop muted playsinline></video>
+                    </div>
+                    <div class="hero-legends" style="flex-wrap: wrap; gap: 20px;">
+                        ${legendsSection.items.map(l => `
+                            <div class="hero-legend" style="cursor: pointer;" onclick="showHeroDescription('${l.name}')">
+                                <img src="${l.img}" alt="${l.name}" class="legend-img">
+                                <span>${l.name}</span>
+                            </div>
+                        `).join('')}
+                    </div>
                 </div>
-                <div class="hero-legends" style="flex-wrap: wrap; gap: 20px;">
-                    ${legends.map(l => `
-                        <div class="hero-legend" style="cursor: pointer;" onclick="showHeroDescription('${l.name}')">
-                            <img src="${l.img}" alt="${l.name}" class="legend-img">
-                            <span>${l.name}</span>
-                        </div>
-                    `).join('')}
-                </div>
-            </div>
-        `;
-        mediaGrid.appendChild(heroSection);
+            `;
+            mediaGrid.appendChild(heroSection);
+        }
 
         // 2. Channel Portal Section
         const channels = [
@@ -154,7 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     window.onclick = (event) => {
         if (event.target == modal) modal.style.display = 'none';
-    }
+    };
 
     const radioPlayer = document.getElementById('radio-player');
     if (radioPlayer) {

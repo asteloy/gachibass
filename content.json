@@ -1,5 +1,19 @@
 [
   {
+    "category": "legends",
+    "items": [
+      {"name": "BILLY HERRINGTON", "img": "assets/pictures/BILLY HERRINGTON.webp"},
+      {"name": "BRAD MCGAIRE", "img": "assets/pictures/BRAD MCGAIRE.jpg"},
+      {"name": "DANNY LEE", "img": "assets/pictures/DANNY LEE.jpg"},
+      {"name": "MARK WOLF", "img": "assets/pictures/MARK WOLF.jpg"},
+      {"name": "RAY HARLEY", "img": "assets/pictures/RAY HARLEY.jpg"},
+      {"name": "RICARDO MILOS", "img": "assets/pictures/RICARDO MILOS.jpg"},
+      {"name": "STEVE HERLEY", "img": "assets/pictures/STEVE HERLEY.jpg"},
+      {"name": "STEVE REMBO", "img": "assets/pictures/STEVE REMBO.jpg"},
+      {"name": "VAN DARKHOLME", "img": "assets/pictures/VAN DARKHOLME.jpg"}
+    ]
+  },
+  {
     "category": "videos",
     "items": []
   },
