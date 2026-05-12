@@ -55,7 +55,6 @@ async function loadContent() {
         mediaGrid.appendChild(chHeader);
 
         channels.forEach(ch => {
-            const card = own a de-duplicated replacement
             const card = document.createElement('div');
             card.className = 'card channel-card';
 
