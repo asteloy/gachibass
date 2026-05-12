@@ -18,6 +18,7 @@ async function loadContent() {
                     <div class="hero-video">
                         <video src="assets/videos/video_bg.mp4" autoplay loop muted playsinline></video>
                     </div>
+                    <h2 class="grid-header" style="margin-bottom: 30px; text-shadow: 0 0 10px #ffd700;">♂ GACHI LEGENDARIUM ♂</h2>
                     <div class="legends-list">
                         ${legendsSection.items.map((l, index) => `
                             <div class="legend-item" onclick="toggleLegend(${index})">
@@ -86,8 +87,7 @@ async function loadContent() {
             card.innerHTML = `
                 ${mediaContent}
                 <div class="channel-info">
-                    <h3">${ch.name}</h3>
-                    <a href="${ch.url}" target="_blank" class="channel-btn">VISIT CHANNEL ♂</a>
+                    <h3><a href="${ch.url}" target="_blank" class="channel-link">${ch.name}</a></h3>
                 </div>
             `;
             mediaGrid.appendChild(card);
@@ -164,7 +164,7 @@ function showNotification(text) {
     setTimeout(() => {
         notification.style.opacity = '0';
         setTimeout(() => notification.remove(), 500);
-    }, 30000);
+    }, 60000);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
