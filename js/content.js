@@ -152,24 +152,55 @@ document.addEventListener('DOMContentLoaded', () => {
     const radioPlayer = document.getElementById('radio-player');
 
     if (radioBtn && radioPlayer) {
+        let loadTimeout;
+
         radioBtn.addEventListener('click', () => {
             if (radioPlayer.paused || radioPlayer.ended) {
-                // Force fresh stream by adding timestamp
+                // Enter loading state
+                radioBtn.textContent = 'LOADING... ♂';
+                radioBtn.disabled = true;
+
+                // Force fresh stream
                 radioPlayer.src = `https://radio.gachibass.us.to/fisting?t=${Date.now()}`;
+                radioPlayer.load();
+
+                // Setup timeout to prevent infinite hanging
+                loadTimeout = setTimeout(() => {
+                    console.warn('Radio stream took too long to start. Resetting...');
+                    radioPlayer.pause();
+                    radioPlayer.src = '';
+                    radioPlayer.load();
+                    radioBtn.textContent = 'PLAY RADIO ♂';
+                    radioBtn.disabled = false;
+                }, 8000); // 8 seconds tolerance for slow streams
+
                 radioPlayer.play()
                     .then(() => {
-                        radioBtn.textContent = 'STOP RADIO ♂';
-                        radioBtn.classList.add('playing');
-                        stopAllAudio(radioPlayer);
+                        // We only change state to 'playing' when the 'playing' event fires
+                        // as .play() only starts the attempt.
                     })
-                    .catch(e => console.error('Radio playback failed:', e));
+                    .catch(e => {
+                        console.error('Radio playback failed:', e);
+                        clearTimeout(loadTimeout);
+                        radioBtn.textContent = 'PLAY RADIO ♂';
+                        radioBtn.disabled = false;
+                    });
             } else {
                 radioPlayer.pause();
-                radioPlayer.src = ''; // Clear source to stop buffering
-                radioPlayer.load(); // Force unload
+                radioPlayer.src = '';
+                radioPlayer.load();
                 radioBtn.textContent = 'PLAY RADIO ♂';
                 radioBtn.classList.remove('playing');
             }
+        });
+
+        // The actual event that confirms the stream is buffering and playing
+        radioPlayer.addEventListener('playing', () => {
+            clearTimeout(loadTimeout);
+            radioBtn.textContent = 'STOP RADIO ♂';
+            radioBtn.disabled = false;
+            radioBtn.classList.add('playing');
+            stopAllAudio(radioPlayer);
         });
     }
     loadContent();
