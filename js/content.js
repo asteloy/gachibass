@@ -142,6 +142,9 @@ function showNotification(text) {
     const container = document.getElementById('notification-container');
     if (!container) return;
 
+    // Clear existing notifications to avoid clutter
+    container.innerHTML = '';
+
     const notification = document.createElement('div');
     notification.className = 'notification';
     notification.innerHTML = text;
@@ -150,7 +153,7 @@ function showNotification(text) {
     setTimeout(() => {
         notification.style.opacity = '0';
         setTimeout(() => notification.remove(), 500);
-    }, 5000);
+    }, 30000);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
