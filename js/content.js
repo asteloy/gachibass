@@ -148,12 +148,29 @@ document.addEventListener('DOMContentLoaded', () => {
         if (event.target == modal) modal.style.display = 'none';
     };
 
+    const radioBtn = document.getElementById('radio-btn');
     const radioPlayer = document.getElementById('radio-player');
-    if (radioPlayer) {
-        radioPlayer.src = 'https://radio.gachibass.us.to/fisting';
-        radioPlayer.onplay = () => {
-            stopAllAudio(radioPlayer);
-        };
+
+    if (radioBtn && radioPlayer) {
+        radioBtn.addEventListener('click', () => {
+            if (radioPlayer.paused || radioPlayer.ended) {
+                // Force fresh stream by adding timestamp
+                radioPlayer.src = `https://radio.gachibass.us.to/fisting?t=${Date.now()}`;
+                radioPlayer.play()
+                    .then(() => {
+                        radioBtn.textContent = 'STOP RADIO ♂';
+                        radioBtn.classList.add('playing');
+                        stopAllAudio(radioPlayer);
+                    })
+                    .catch(e => console.error('Radio playback failed:', e));
+            } else {
+                radioPlayer.pause();
+                radioPlayer.src = ''; // Clear source to stop buffering
+                radioPlayer.load(); // Force unload
+                radioBtn.textContent = 'PLAY RADIO ♂';
+                radioBtn.classList.remove('playing');
+            }
+        });
     }
     loadContent();
 });
